@@ -92,7 +92,13 @@ class User
 
     public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+
+        if (empty($roles)) {
+            $roles[] = 'ROLE_EMPLOYEE';
+        }
+
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
