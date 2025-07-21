@@ -6,10 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\TimestampableTrait;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
+
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +31,7 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -131,5 +134,14 @@ class User
 
         return $this;
     }
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
     use TimestampableTrait;
 }
