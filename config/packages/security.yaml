@@ -20,6 +20,9 @@ security:
                 check_path: app_login
                 enable_csrf: true
                 success_handler: App\Security\LoginSuccessHandler
+            
+            remember_me:
+                secret: '%kernel.secret%'
 
             logout:
                 path: app_logout
