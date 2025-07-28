@@ -1,15 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
-
-{% block body %}
-
-
-<div class="example-wrapper">
+{% block admin_content %}
+    <h1 class="mt-4">Dashboard</h1>
+    <p>This is your OTACOS admin dashboard content.</p>
+    <div class="example-wrapper">
     <h1>Hello , welcome to manager dashboard ✅</h1>
 </div>
  <div class="mb-3">
                 Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
             </div>
-
 {% endblock %}

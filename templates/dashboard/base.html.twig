@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="bg-black row px-4">
+		<div class="col-2 text-primary">
+			<a class="navbar-brand" href="#">
+				{# <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="HELLO" width="30" height="24"> #}
+                OTACOS
+			</a>
+		</div>
+		<div
+			class="col-10 d-flex justify-content-end justify-content-lg-between">
+			<!-- Toggle button for desktop -->
+			<button class="btn btn-link btn-sm text-white d-none d-lg-inline ms-3" id="sidebarToggle">
+				<i class="bi bi-list fs-2 fs-lg-1"></i>
+			</button>
+
+			<!-- Toggle button for mobile/tablet -->
+			<button class="btn btn-link btn-sm text-white d-lg-none ms-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+					<i class="bi bi-list fs-2 fs-lg-1"></i>
+			</button>
+
+			<!-- User dropdown -->
+			<ul class="navbar-nav me-0">
+				<li class="nav-item dropdown text-white">
+					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+				<i class="bi bi-person text-white fs-2 fs-lg-1" ></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end">
+						<li>
+							<a class="dropdown-item" href="#">Settings</a>
+						</li>
+						<li><hr class="dropdown-divider"></li>
+						<li>
+							<a class="dropdown-item" href="#">Logout</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+
+	</div>
+</div>{% endblock %}
