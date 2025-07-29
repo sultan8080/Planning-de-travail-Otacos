@@ -8,5 +8,3 @@ import 'bootstrap/dist/css/bootstrap.min.css';
  * which should already be in your base.html.twig.
  */
 import './styles/app.scss';
-
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

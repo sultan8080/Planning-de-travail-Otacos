@@ -20,3 +20,5 @@
 ###< symfony/asset-mapper ###
 /hello.html
 /hello2.html
+/hello3 copy.html
+/hello3.html
