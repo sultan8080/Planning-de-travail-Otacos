@@ -1,60 +1,59 @@
 $primary: #ff5733; // Your custom color
 
-@import '../../vendor/twbs/bootstrap/scss/bootstrap';
-
+@import "../../vendor/twbs/bootstrap/scss/bootstrap";
 
 /* Sidebar with smooth animation */
+#sidebar {
+    overflow-y: auto;
+    position: relative;
+    flex-shrink: 0;
+    width: 20vw;
+    left: 0;
+    transition: left 0.3s ease-in-out;
+}
+
+#sidebar.collapsed {
+    left: -20vw;
+}
+
+#main-content {
+    transition: margin-left 0.3s ease-in-out;
+}
+
+#sidebar.collapsed + #main-content {
+    margin-left: 0;
+}
+
+.logosection {
+    width: 20vw;
+}
+
+@media (max-width: 991.98px) {
     #sidebar {
-      overflow-y: auto;
-      background-color: #343a40;
-      color: white;
-      height: calc(100vh - 60px);
-      position: relative;
-      flex-shrink: 0;
-      width: 20vw;
-      left: 0;
-      transition: left 0.3s ease-in-out;
-    }
-
-    #sidebar.collapsed {
-      left: -20vw;
-    }
-
-    #main-content {
-      margin-left: 20vw;
-      padding: 1rem;
-      width: 100%;
-      min-height: calc(100vh - 60px);
-      box-sizing: border-box;
-      transition: margin-left 0.3s ease-in-out;
-    }
-
-    #sidebar.collapsed + #main-content {
-      margin-left: 0;
-    }
-
-    @media (max-width: 991.98px) {
-      #sidebar {
         position: fixed;
-        top: 60px;
         left: -100%;
         width: 38vw;
         z-index: 1050;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
         transition: left 0.3s ease-in-out;
-      }
+    }
 
-      #sidebar.show {
+    #sidebar.show {
         left: 0;
-      }
-
-      #main-content {
-        margin-left: 0 !important;
-      }
     }
-
-    @media (max-width: 767.98px) {
-      #sidebar {
+ .logosection {
         width: 45vw;
-      }
     }
+    #main-content {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #sidebar {
+        width: 45vw;
+    }
+    .logosection {
+        width: 50vw;
+    }
+}
