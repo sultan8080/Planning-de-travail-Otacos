@@ -40,6 +40,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Branch $branch = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -144,4 +148,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     use TimestampableTrait;
+
+    public function getBranch(): ?Branch
+    {
+        return $this->branch;
+    }
+
+    public function setBranch(?Branch $branch): static
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
 }
