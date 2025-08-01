@@ -21,7 +21,7 @@ class Note
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'note')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'note')]

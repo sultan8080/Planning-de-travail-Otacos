@@ -20,7 +20,7 @@ class PlanningEntry
     private ?string $comment = null;
 
     #[ORM\ManyToOne(inversedBy: 'planningEntry')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'planningEntry')]

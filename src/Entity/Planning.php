@@ -33,11 +33,11 @@ class Planning
     private ?\DateTimeImmutable $end_date = null;
 
     #[ORM\ManyToOne(inversedBy: 'planning')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Branch $branch = null;
 
     #[ORM\ManyToOne(inversedBy: 'planning')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     /**
