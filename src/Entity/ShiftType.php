@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ShiftTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,17 @@ class ShiftType
 
     #[ORM\Column(type: Types::TIME_IMMUTABLE)]
     private ?\DateTimeImmutable $default_end = null;
+
+    /**
+     * @var Collection<int, Shift>
+     */
+    #[ORM\OneToMany(targetEntity: Shift::class, mappedBy: 'shiftType')]
+    private Collection $shift;
+
+    public function __construct()
+    {
+        $this->shift = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +73,36 @@ class ShiftType
     public function setDefaultEnd(\DateTimeImmutable $default_end): static
     {
         $this->default_end = $default_end;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shift>
+     */
+    public function getShift(): Collection
+    {
+        return $this->shift;
+    }
+
+    public function addShift(Shift $shift): static
+    {
+        if (!$this->shift->contains($shift)) {
+            $this->shift->add($shift);
+            $shift->setShiftType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShift(Shift $shift): static
+    {
+        if ($this->shift->removeElement($shift)) {
+            // set the owning side to null (unless already changed)
+            if ($shift->getShiftType() === $this) {
+                $shift->setShiftType(null);
+            }
+        }
 
         return $this;
     }

@@ -26,6 +26,9 @@ class Shift
     #[ORM\Column(type: Types::TIME_IMMUTABLE)]
     private ?\DateTimeImmutable $end_time = null;
 
+    #[ORM\ManyToOne(inversedBy: 'shift')]
+    private ?ShiftType $shiftType = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Shift
     public function setEndTime(\DateTimeImmutable $end_time): static
     {
         $this->end_time = $end_time;
+
+        return $this;
+    }
+
+    public function getShiftType(): ?ShiftType
+    {
+        return $this->shiftType;
+    }
+
+    public function setShiftType(?ShiftType $shiftType): static
+    {
+        $this->shiftType = $shiftType;
 
         return $this;
     }
