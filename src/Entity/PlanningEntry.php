@@ -23,6 +23,9 @@ class PlanningEntry
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'planningEntry')]
+    private ?Shift $shift = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class PlanningEntry
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getShift(): ?Shift
+    {
+        return $this->shift;
+    }
+
+    public function setShift(?Shift $shift): static
+    {
+        $this->shift = $shift;
 
         return $this;
     }

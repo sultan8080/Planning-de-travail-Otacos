@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PlanningRepository;
 use App\Entity\Traits\TimestampableTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\HasLifecycleCallbacks]
@@ -37,6 +39,17 @@ class Planning
     #[ORM\ManyToOne(inversedBy: 'planning')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, Shift>
+     */
+    #[ORM\ManyToMany(targetEntity: Shift::class, mappedBy: 'planning')]
+    private Collection $shifts;
+
+    public function __construct()
+    {
+        $this->shifts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,6 +124,33 @@ class Planning
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shift>
+     */
+    public function getShifts(): Collection
+    {
+        return $this->shifts;
+    }
+
+    public function addShift(Shift $shift): static
+    {
+        if (!$this->shifts->contains($shift)) {
+            $this->shifts->add($shift);
+            $shift->addPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShift(Shift $shift): static
+    {
+        if ($this->shifts->removeElement($shift)) {
+            $shift->removePlanning($this);
+        }
 
         return $this;
     }
