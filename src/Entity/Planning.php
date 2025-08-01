@@ -30,6 +30,10 @@ class Planning
     #[ORM\Column]
     private ?\DateTimeImmutable $end_date = null;
 
+    #[ORM\ManyToOne(inversedBy: 'planning')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Branch $branch = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +83,18 @@ class Planning
     public function setEndDate(\DateTimeImmutable $end_date): static
     {
         $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    public function getBranch(): ?Branch
+    {
+        return $this->branch;
+    }
+
+    public function setBranch(?Branch $branch): static
+    {
+        $this->branch = $branch;
 
         return $this;
     }

@@ -31,9 +31,16 @@ class Branch
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'branch')]
     private Collection $user;
 
+    /**
+     * @var Collection<int, Planning>
+     */
+    #[ORM\OneToMany(targetEntity: Planning::class, mappedBy: 'branch')]
+    private Collection $planning;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->planning = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +96,36 @@ class Branch
             // set the owning side to null (unless already changed)
             if ($user->getBranch() === $this) {
                 $user->setBranch(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getPlanning(): Collection
+    {
+        return $this->planning;
+    }
+
+    public function addPlanning(Planning $planning): static
+    {
+        if (!$this->planning->contains($planning)) {
+            $this->planning->add($planning);
+            $planning->setBranch($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): static
+    {
+        if ($this->planning->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getBranch() === $this) {
+                $planning->setBranch(null);
             }
         }
 
