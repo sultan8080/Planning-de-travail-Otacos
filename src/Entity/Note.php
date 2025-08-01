@@ -24,6 +24,9 @@ class Note
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'note')]
+    private ?Planning $planning = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +54,18 @@ class Note
   public function setUser(?User $user): static
   {
       $this->user = $user;
+
+      return $this;
+  }
+
+  public function getPlanning(): ?Planning
+  {
+      return $this->planning;
+  }
+
+  public function setPlanning(?Planning $planning): static
+  {
+      $this->planning = $planning;
 
       return $this;
   }

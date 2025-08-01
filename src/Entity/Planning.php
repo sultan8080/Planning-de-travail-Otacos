@@ -46,9 +46,16 @@ class Planning
     #[ORM\ManyToMany(targetEntity: Shift::class, mappedBy: 'planning')]
     private Collection $shifts;
 
+    /**
+     * @var Collection<int, Note>
+     */
+    #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'planning')]
+    private Collection $note;
+
     public function __construct()
     {
         $this->shifts = new ArrayCollection();
+        $this->note = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +157,36 @@ class Planning
     {
         if ($this->shifts->removeElement($shift)) {
             $shift->removePlanning($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNote(): Collection
+    {
+        return $this->note;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->note->contains($note)) {
+            $this->note->add($note);
+            $note->setPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->note->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getPlanning() === $this) {
+                $note->setPlanning(null);
+            }
         }
 
         return $this;
