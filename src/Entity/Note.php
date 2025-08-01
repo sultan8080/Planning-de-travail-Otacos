@@ -21,7 +21,7 @@ class Note
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'note')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function getId(): ?int
