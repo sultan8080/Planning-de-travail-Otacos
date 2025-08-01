@@ -20,6 +20,10 @@ class Note
     #[ORM\Column(length: 255)]
     private ?string $content = null;
 
+    #[ORM\ManyToOne(inversedBy: 'note')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,4 +42,16 @@ class Note
     }
 
   use TimestampableTrait;
+
+  public function getUser(): ?User
+  {
+      return $this->user;
+  }
+
+  public function setUser(?User $user): static
+  {
+      $this->user = $user;
+
+      return $this;
+  }
 }

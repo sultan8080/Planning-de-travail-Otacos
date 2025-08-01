@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\TimestampableTrait;
@@ -43,6 +45,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'user')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Branch $branch = null;
+
+    /**
+     * @var Collection<int, PlanningEntry>
+     */
+    #[ORM\OneToMany(targetEntity: PlanningEntry::class, mappedBy: 'user')]
+    private Collection $planningEntry;
+
+    /**
+     * @var Collection<int, Note>
+     */
+    #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'user')]
+    private Collection $note;
+
+    /**
+     * @var Collection<int, Planning>
+     */
+    #[ORM\OneToMany(targetEntity: Planning::class, mappedBy: 'user')]
+    private Collection $planning;
+
+    public function __construct()
+    {
+        $this->planningEntry = new ArrayCollection();
+        $this->note = new ArrayCollection();
+        $this->planning = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,6 +184,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBranch(?Branch $branch): static
     {
         $this->branch = $branch;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PlanningEntry>
+     */
+    public function getPlanningEntry(): Collection
+    {
+        return $this->planningEntry;
+    }
+
+    public function addPlanningEntry(PlanningEntry $planningEntry): static
+    {
+        if (!$this->planningEntry->contains($planningEntry)) {
+            $this->planningEntry->add($planningEntry);
+            $planningEntry->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanningEntry(PlanningEntry $planningEntry): static
+    {
+        if ($this->planningEntry->removeElement($planningEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($planningEntry->getUser() === $this) {
+                $planningEntry->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNote(): Collection
+    {
+        return $this->note;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->note->contains($note)) {
+            $this->note->add($note);
+            $note->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->note->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getUser() === $this) {
+                $note->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getPlanning(): Collection
+    {
+        return $this->planning;
+    }
+
+    public function addPlanning(Planning $planning): static
+    {
+        if (!$this->planning->contains($planning)) {
+            $this->planning->add($planning);
+            $planning->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): static
+    {
+        if ($this->planning->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getUser() === $this) {
+                $planning->setUser(null);
+            }
+        }
 
         return $this;
     }
