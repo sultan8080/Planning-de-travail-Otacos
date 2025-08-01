@@ -26,6 +26,9 @@ class PlanningEntry
     #[ORM\ManyToOne(inversedBy: 'planningEntry')]
     private ?Shift $shift = null;
 
+    #[ORM\ManyToOne(inversedBy: 'planningEntry')]
+    private ?AbsenceType $absenceType = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class PlanningEntry
     public function setShift(?Shift $shift): static
     {
         $this->shift = $shift;
+
+        return $this;
+    }
+
+    public function getAbsenceType(): ?AbsenceType
+    {
+        return $this->absenceType;
+    }
+
+    public function setAbsenceType(?AbsenceType $absenceType): static
+    {
+        $this->absenceType = $absenceType;
 
         return $this;
     }
