@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\AbsenceType;
 use App\Entity\Branch;
 use App\Entity\ShiftType;
 use App\Entity\User;
@@ -42,7 +43,6 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
             $manager->persist($user);
         }
-
         // 3. Create ShiftTypes
         $shiftTypes = [
             ['Le Matin', '11:00', '14:00'],
@@ -60,6 +60,14 @@ class AppFixtures extends Fixture
             $manager->persist($shiftType);
         }
 
+             // 4. Create AbsenceTypes
+        $absenceTypes = ['Congé Payés', 'Arret maladie', 'Accident du travail', 'Absence injustfiée', 'Absence Justifiée', 'Autre'];
+
+        foreach ($absenceTypes as $label) {
+            $absenceType = new AbsenceType();
+            $absenceType->setLabel($label);
+            $manager->persist($absenceType);
+        }
         $manager->flush();
     }
 }
