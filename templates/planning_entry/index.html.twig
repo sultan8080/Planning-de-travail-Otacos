@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlanningEntry index{% endblock %}
+
+{% block body %}
+    <h1>PlanningEntry index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Is_absent</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planning_entry in planning_entries %}
+            <tr>
+                <td>{{ planning_entry.id }}</td>
+                <td>{{ planning_entry.isAbsent ? 'Yes' : 'No' }}</td>
+                <td>{{ planning_entry.comment }}</td>
+                <td>
+                    <a href="{{ path('app_planning_entry_show', {'id': planning_entry.id}) }}">show</a>
+                    <a href="{{ path('app_planning_entry_edit', {'id': planning_entry.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planning_entry_new') }}">Create new</a>
+{% endblock %}
