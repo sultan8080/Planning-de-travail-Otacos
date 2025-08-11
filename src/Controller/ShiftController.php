@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Shift;
-use App\Form\ShiftType;
+use App\Form\ShiftFormType;
 use App\Repository\ShiftRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ final class ShiftController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $shift = new Shift();
-        $form = $this->createForm(ShiftType::class, $shift);
+        $form = $this->createForm(ShiftFormType::class, $shift);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ final class ShiftController extends AbstractController
     #[Route('/{id}/edit', name: 'app_shift_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Shift $shift, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ShiftType::class, $shift);
+        $form = $this->createForm(ShiftFormType::class, $shift);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -71,7 +71,7 @@ final class ShiftController extends AbstractController
     #[Route('/{id}', name: 'app_shift_delete', methods: ['POST'])]
     public function delete(Request $request, Shift $shift, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$shift->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $shift->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($shift);
             $entityManager->flush();
         }

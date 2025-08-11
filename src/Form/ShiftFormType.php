@@ -4,13 +4,13 @@ namespace App\Form;
 
 use App\Entity\Planning;
 use App\Entity\Shift;
-use App\Entity\ShiftType;
+use App\Entity\ShiftType as ShiftTypeEntity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ShiftType extends AbstractType
+class ShiftFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -26,15 +26,14 @@ class ShiftType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('shiftType', EntityType::class, [
-                'class' => self::class,
-                'choice_label' => 'id',
+                'class' => ShiftTypeEntity::class,
+                'choice_label' => 'shift_name', // pick a meaningful field here
             ])
             ->add('planning', EntityType::class, [
                 'class' => Planning::class,
                 'choice_label' => 'id',
                 'multiple' => true,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
