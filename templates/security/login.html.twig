@@ -4,24 +4,66 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-6 col-lg-9">
-				<div
-					class="row">
-					<!-- Left Side: Logo -->
-					<div class="col-lg-5 col-md-6 col-12 bg-primary d-flex flex-column justify-content-center align-items-center p-4">
-						<img src="{{ asset('assets/images/otacos_logo.png') }}" alt="Logo">
-						<p class="mb-0">02400, Château Thierry</p>
+	<div class="bg-primary">
+		<div class="vh-100 d-flex justify-content-center align-items-center">
+		
+				<div class="col-12 col-md-10 col-lg-7 card shadow-lg border-0 rounded-lg bg-primary">
+					<div
+						class="row">
+						<!-- Left Side: Logo -->
+						<div class="col-md-5 col-12 d-flex flex-column justify-content-center align-items-center">
+							<img src="{{ asset('images/otacos_logo.png') }}" alt="Logo" class="img-flui" style="width: 120px; height:auto">
+							<p class="mt-2 text-white">02400, Château Thierry</p>
+						</div>
+
+						<!-- Right Side: Login Form -->
+						<div class="col-md-7 col-12 d-flex flex-column justify-content-center bg-white border-0 rounded-lg">
+							<div class="">
+								<form method="post">
+									{% if error %}
+										<div class="alert alert-danger">
+											{{ error.messageKey|trans(error.messageData, 'security') }}
+										</div>
+									{% endif %}
+									{% if app.user %}
+										<div class="mb-3">
+											Vous êtes connecté en tant que
+											<strong>{{ app.user.userIdentifier }}</strong>,
+											<a href="{{ path('app_logout') }}">Déconnexion</a>
+										</div>
+									{% endif %}
+
+									<div class="card-header bg-transparent border-bottom-0">
+										<h3 class="text-center font-weight-bold text-primary my-4">
+											Se Connecter
+										</h3>
+									</div>
+
+									<div class="card-body">
+										<div class="form-floating mb-3">
+											<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" placeholder="name@example.com" required autofocus/>
+											<label for="username">Votre Email</label>
+										</div>
+
+										<div class="form-floating mb-3">
+											<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" placeholder="Password" required/>
+											<label for="password">Mot de passe</label>
+											<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+										</div>
+
+										<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+											<a class="small text-secondary" href="#">Mot de passe oublié?</a>
+											<button class="btn btn-primary text-white" type="submit">Connexion</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
 					</div>
-					<!-- Right Side: Login Form -->
-					<div class="col-lg-7 col-md-6 col-12 d-flex flex-column justify-content-center p-4 bg-success">
-                    
-                    
-                    </div>
 				</div>
-			</div>
+		
 		</div>
 	</div>
+
 
 {% endblock %}
