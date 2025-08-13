@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connexion
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-9">
-            <div class="row">
-                <!-- Left Side: Logo -->
-                <div class="col-lg-5 col-6 bg-primary d-flex flex-column justify-content-center align-items-center p-4"
-                >
-                
-                </div>
-
-                <!-- Right Side: Login Form -->
-                <div
-                    class="col-lg-7 col-6 d-flex flex-column justify-content-center p-4 bg-success"
-                ></div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-9">
+				<div
+					class="row">
+					<!-- Left Side: Logo -->
+					<div class="col-lg-5 col-md-6 col-12 bg-primary d-flex flex-column justify-content-center align-items-center p-4">
+						<img src="{{ asset('assets/images/otacos_logo.png') }}" alt="Logo">
+						<p class="mb-0">02400, Château Thierry</p>
+					</div>
+					<!-- Right Side: Login Form -->
+					<div class="col-lg-7 col-md-6 col-12 d-flex flex-column justify-content-center p-4 bg-success">
+                    
+                    
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
