@@ -35,4 +35,17 @@ return [
         'version' => '5.3.7',
         'type' => 'css',
     ],
+    'jquery' => [
+        'version' => '3.7.1',
+    ],
+    'datatables.net' => [
+        'version' => '2.3.2',
+    ],
+    'datatables.net-bs5' => [
+        'version' => '2.3.2',
+    ],
+    'datatables.net-bs5/css/dataTables.bootstrap5.min.css' => [
+        'version' => '2.3.2',
+        'type' => 'css',
+    ],
 ];
